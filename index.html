@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Prioridad y Dificultad</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; }
+        h2 { color: #007bff; }
+        .question { margin-bottom: 15px; }
+        button { background: #007bff; color: white; border: none; padding: 10px; cursor: pointer; width: 100%; }
+        button:hover { background: #0056b3; }
+        #resultado { margin-top: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h2>Test de Prioridad y Dificultad</h2>
+    <form id="testForm">
+        <div class="question">
+            <p>1. ¿Cuál es la consecuencia de NO hacer esta tarea a tiempo?</p>
+            <label><input type="radio" name="q1" value="1" required> No pasa nada importante.</label><br>
+            <label><input type="radio" name="q1" value="2"> Podría generar problemas menores.</label><br>
+            <label><input type="radio" name="q1" value="3"> Afectaría significativamente mis objetivos.</label><br>
+            <label><input type="radio" name="q1" value="4"> Tendría consecuencias graves.</label><br>
+        </div>
+
+        <div class="question">
+            <p>2. ¿Está relacionada con un objetivo clave o urgente?</p>
+            <label><input type="radio" name="q2" value="1" required> No está relacionada con nada importante.</label><br>
+            <label><input type="radio" name="q2" value="2"> Es útil, pero no esencial.</label><br>
+            <label><input type="radio" name="q2" value="3"> Está alineada con un objetivo importante.</label><br>
+            <label><input type="radio" name="q2" value="4"> Es crucial y urgente.</label><br>
+        </div>
+
+        <div class="question">
+            <p>3. ¿Depende de mí o alguien más la está esperando?</p>
+            <label><input type="radio" name="q3" value="1" required> No depende de mí ni afecta a otros.</label><br>
+            <label><input type="radio" name="q3" value="2"> Alguien lo necesita, pero sin prisa.</label><br>
+            <label><input type="radio" name="q3" value="3"> Varias personas dependen de ello pronto.</label><br>
+            <label><input type="radio" name="q3" value="4"> Es urgente y varias personas lo están esperando.</label><br>
+        </div>
+
+        <div class="question">
+            <p>4. ¿Cuánto tiempo tomaría completar esta tarea?</p>
+            <label><input type="radio" name="q4" value="1" required> Menos de 10 minutos.</label><br>
+            <label><input type="radio" name="q4" value="2"> Entre 10 minutos y 1 hora.</label><br>
+            <label><input type="radio" name="q4" value="3"> Varias horas o un día completo.</label><br>
+            <label><input type="radio" name="q4" value="4"> Requiere varios días o semanas.</label><br>
+        </div>
+
+        <div class="question">
+            <p>5. ¿Requiere recursos o habilidades especiales?</p>
+            <label><input type="radio" name="q5" value="1" required> No, es muy fácil de hacer.</label><br>
+            <label><input type="radio" name="q5" value="2"> Requiere esfuerzo, pero tengo lo necesario.</label><br>
+            <label><input type="radio" name="q5" value="3"> Necesito aprender o pedir ayuda.</label><br>
+            <label><input type="radio" name="q5" value="4"> Es muy compleja y requiere muchas herramientas o conocimientos.</label><br>
+        </div>
+
+        <div class="question">
+            <p>6. ¿Puedo dividirla en pasos más pequeños?</p>
+            <label><input type="radio" name="q6" value="1" required> No es necesario, es simple.</label><br>
+            <label><input type="radio" name="q6" value="2"> Podría dividirla, pero no es complicado.</label><br>
+            <label><input type="radio" name="q6" value="3"> Sí, necesita varios pasos organizados.</label><br>
+            <label><input type="radio" name="q6" value="4"> Es tan grande que requiere una planificación detallada.</label><br>
+        </div>
+
+        <div class="question">
+            <p>7. ¿No hacer esta tarea puede lastimar a alguien, hacer perder una oportunidad o generar una crisis?</p>
+            <label><input type="radio" name="q7" value="1" required> No tiene impacto en nadie.</label><br>
+            <label><input type="radio" name="q7" value="2"> Puede afectar levemente a alguien.</label><br>
+            <label><input type="radio" name="q7" value="3"> Puede generar un problema serio.</label><br>
+            <label><input type="radio" name="q7" value="4"> Puede causar daño grave o perder una gran oportunidad.</label><br>
+        </div>
+
+        <button type="button" onclick="calcularPrioridad()">Calcular Prioridad</button>
+    </form>
+
+    <div id="resultado"></div>
+
+    <script>
+        function calcularPrioridad() {
+            let total = 0;
+            const preguntas = document.querySelectorAll('input[type="radio"]:checked');
+            
+            preguntas.forEach(p => {
+                total += parseInt(p.value);
+            });
+
+            let mensaje = "";
+            if (total >= 25) {
+                mensaje = "⚠️ **Crítica y compleja** (Urgente y necesita planificación).";
+            } else if (total >= 18) {
+                mensaje = "🔴 **Alta prioridad y/o dificultad** (Debe resolverse pronto).";
+            } else if (total >= 11) {
+                mensaje = "🟡 **Prioridad media, dificultad baja o media** (Se puede planificar).";
+            } else {
+                mensaje = "🔵 **Muy baja prioridad y dificultad** (Se puede hacer en cualquier momento).";
+            }
+
+            document.getElementById("resultado").innerHTML = `<h3>Resultado: ${total} puntos</h3><p>${mensaje}</p>`;
+        }
+    </script>
+
+</body>
+</html>
